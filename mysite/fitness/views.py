@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.template import loader
 
 def fitness(request):
-    return HttpResponse("Hello, world. You're at the fitness site ")
-
+  template = loader.get_template('myfirst.html')
+  return HttpResponse(template.render())
