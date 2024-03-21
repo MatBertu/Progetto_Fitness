@@ -66,3 +66,16 @@ pip install Django
 pip freeze > requirements.txt
 
 ```
+# Entra nella cartella del sito
+1. cd (nome cartella)mysite
+
+# Run the server
+1. python manage.py runserver
+
+2. Dal Browser si aprirà l'hot di defeault http://127.0.0.1:8000/
+
+Aggiungi fitness o allenamenti in base al sito che vuoi visualizzare.
+
+# Esegui le migrazioni se necessarie
+
+python manage.py migrate
