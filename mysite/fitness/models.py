@@ -10,6 +10,7 @@ class Member(models.Model):
     cognome = models.CharField(max_length= 50)
     data_iscrizione = models.DateTimeField(auto_now_add = True)
     username = models.CharField(max_length = 50, unique = True)
+    fascia_età = models.CharField(max_length=50)
     
     peso =  models.DecimalField
     altezza = models.DecimalField
@@ -30,6 +31,7 @@ class CaratteristicheFisiche(models.Model):
    SOTTOPESO = "SOTTOP"
    NORMOPESO = "NORMOP"
    SOVRAPPESO = "SOVRAP"
+   
 
 
    SCELTA_TROVA_CARATTERISTICHE = [
