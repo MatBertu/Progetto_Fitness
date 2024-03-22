@@ -70,7 +70,7 @@ pip freeze > requirements.txt
 ```sh
 1. cd (nome cartella)mysite
 ```
-# Run the server
+# Run the server/site
 ```sh
 1. python manage.py runserver
 ```
