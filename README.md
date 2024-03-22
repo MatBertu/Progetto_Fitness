@@ -67,15 +67,19 @@ pip freeze > requirements.txt
 
 ```
 # Entra nella cartella del sito
+```sh
 1. cd (nome cartella)mysite
-
+```
 # Run the server
+```sh
 1. python manage.py runserver
+```
 
-2. Dal Browser si aprirà l'hot di defeault http://127.0.0.1:8000/
+2. Si aprirà il Browser con l'host di defeault http://127.0.0.1:8000/
 
-Aggiungi fitness o allenamenti in base al sito che vuoi visualizzare.
+Aggiungi all'indirizzo sopra fitness o allenamenti in base al sito che vuoi visualizzare.
 
 # Esegui le migrazioni se necessarie
-
+```sh
 python manage.py migrate
+```
