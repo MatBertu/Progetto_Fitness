@@ -10,7 +10,7 @@ Questo progetto funziona con Python 3.12.
 ```sh
 1.clone the repo and enter the folder
 
-git clone https://github.com/bertux-8/Progetto_Django.git
+git clone  ex:( https://github.com/bertux-8/Progetto_Django.git )
 
 cd nome cartella >>(Progetto_Django)
 ```
@@ -77,7 +77,7 @@ pip freeze > requirements.txt
 
 2. Si aprirà il Browser con l'host di defeault http://127.0.0.1:8000/
 
-Aggiungi all'indirizzo sopra fitness o allenamenti in base al sito che vuoi visualizzare.
+3. Aggiungi all'indirizzo sopra fitness o allenamenti in base al sito che vuoi visualizzare.
 
 # Esegui le migrazioni se necessarie
 ```sh
