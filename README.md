@@ -83,3 +83,10 @@ pip freeze > requirements.txt
 ```sh
 python manage.py migrate
 ```
+
+#Funzionalità in fase di sviluppo 
+```sh
+Scelta dei programmi di allenamento su misura per ogni singolo individuo
+
+Allestimento pagina di allenamenti e schede programmate 
+```
