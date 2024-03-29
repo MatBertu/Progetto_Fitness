@@ -5,7 +5,7 @@ from .models import Member
 
 def fitness(request):
   members = Member.objects.all().values()
-  template = loader.get_template('templates.html')
+  template = loader.get_template('fitness.html')
  
 
   context = {
