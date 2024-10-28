@@ -53,7 +53,7 @@ class ObiettivoFitness(models.Model):
         ('P', 'Perdere peso'),
         ('A', 'Aumentare massa muscolare'),
         ('F', 'Mantenere la forma fisica'),
-        ('A', 'Altri'),
+        ('A', 'Altro'),
     ]
 
 
