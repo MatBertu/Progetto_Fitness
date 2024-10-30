@@ -37,6 +37,6 @@ def ollama(request):
   
   response = model.invoke(input="Fai qualche esempio di progetto web")
   
-  context = {"response" : markdown.markdown(response, extensions =["extra", " codehilite"])}
+  context = {"response" : markdown.markdown(response, extensions =["extra","codehilite"])}
   
-  return render(request, "polls/ollama.html", context = context )
+  return render(request,"fitness/ollama.html", context = context )
