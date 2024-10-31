@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
 from django.db import models 
@@ -10,7 +10,7 @@ import markdown
 
 def fitness(request):
   members = Member.objects.all().values()
-  template = loader.get_template('fitness.html')
+  template = loader.get_template('fitness/fitness.html')
  
 
   context = {
@@ -20,7 +20,7 @@ def fitness(request):
 
 def allenamenti(request):
   members = Member.objects.all().values()
-  template = loader.get_template('allenamenti.html')
+  template = loader.get_template('fitness/allenamenti.html')
  
 
   context = {
@@ -28,11 +28,11 @@ def allenamenti(request):
   }
   return HttpResponse(template.render(context, request))
 
-
+  pass
 
 def ollama(request):
 
-  
+
   model = OllamaLLM(model="gemma2:2b")
   
   response = model.invoke(input="Fai qualche esempio di progetto web")
