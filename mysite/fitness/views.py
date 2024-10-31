@@ -33,9 +33,9 @@ def allenamenti(request):
 def ollama(request):
 
 
-  model = OllamaLLM(model="gemma2:2b")
-  
-  response = model.invoke(input="Fai qualche esempio di progetto web")
+  model = OllamaLLM(model="llama3.2:latest")
+  #qwen2.5:latest provato il 7b ma troppo lento 
+  response = model.invoke(input="Comportati da personal trainer e consigliami qualche esercizio giornaliero di rilassamento m")
   
   context = {"response" : markdown.markdown(response, extensions =["extra","codehilite"])}
   
