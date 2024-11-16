@@ -46,12 +46,18 @@ class CaratteristicheFisiche(models.Model):
     default = "",
    )
 
+   class Meta:
+        verbose_name = "CaratteristicheFisiche"  # Nome singolare
+         
+   def __str__(self):
+        return self.nome
+
 
 
 class ObiettivoFitness(models.Model):
     UTENTE_OBIETTIVO_CHOICES = [
-        ('P', 'Perdere peso'),
-        ('A', 'Aumentare massa muscolare'),
+        ('D', 'Dimagrimento'),
+        ('M', 'Massa muscolare'),
         ('F', 'Mantenere la forma fisica'),
         ('A', 'Altro'),
     ]
