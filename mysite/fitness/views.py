@@ -35,7 +35,8 @@ def ollama(request):
 
   model = OllamaLLM(model="llama3.2:latest")
   #qwen2.5:latest provato il 7b ma troppo lento 
-  response = model.invoke(input="Comportati da personal trainer e consigliami qualche esercizio giornaliero di rilassamento m")
+  
+  response = model.invoke(input="Comportati da personal trainer e consigliami qualche esercizio giornaliero di rilassamento ")
   
   context = {"response" : markdown.markdown(response, extensions =["extra","codehilite"])}
   
