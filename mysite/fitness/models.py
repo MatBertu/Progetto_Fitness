@@ -10,13 +10,13 @@ class Member(models.Model):
     cognome = models.CharField(max_length= 50)
     data_iscrizione = models.DateTimeField(auto_now_add = True)
     username = models.CharField(max_length = 50, unique = True)
+    altezza = models.DecimalField(max_digits=5, decimal_places=2, help_text="Inserisci l'altezza in cm")
+    peso = models.DecimalField(max_digits=5, decimal_places=2, help_text="Inserisci il peso in kg")
     
+    def __str__(self):
+        return f"Altezza: {self.altezza} cm, Peso: {self.peso} kg"
     
-    peso =  models.DecimalField
-    altezza = models.DecimalField
-    
-    
-    REQUIRED_FIELDS = ['nome', 'cognome']
+    REQUIRED_FIELDS = ['nome', 'cognome','peso','altezza']
 
 
     class Meta:
@@ -25,6 +25,7 @@ class Member(models.Model):
 
     def __str__(self)->str:
       return self.username
+      
 
 
 class CaratteristicheFisiche(models.Model):
@@ -48,7 +49,7 @@ class CaratteristicheFisiche(models.Model):
 
    class Meta:
         verbose_name = "CaratteristicheFisiche"  # Nome singolare
-         
+        
    def __str__(self):
         return self.nome
 
