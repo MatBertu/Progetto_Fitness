@@ -1,4 +1,4 @@
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
 from django.db import models 
@@ -40,3 +40,4 @@ def ollama(request):
   context = {"response" : markdown.markdown(response, extensions =["extra","codehilite"])}
   
   return render(request,"fitness/ollama.html", context = context )
+
