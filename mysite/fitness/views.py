@@ -64,3 +64,7 @@ def workout(request):
   return render (request, "fitness/workout.html", context = context )
 
  #WORKING IN PROGRESS VISTA API SPORT
+
+def index(request):
+ 
+  return render(request, 'fitness/index.html')
