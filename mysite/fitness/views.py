@@ -9,28 +9,26 @@ import markdown
 import pandas as pd 
 
 
-
 def fitness(request):
-  members = Member.objects.all().values()
-  template = loader.get_template('fitness/fitness.html')
  
+  return render(request, 'fitness/fitness.html')
 
-  context = {
-    'members': members
-  }
-  return HttpResponse(template.render(context, request))
 
-def allenamenti(request):
-  members = Member.objects.all().values()
-  template = loader.get_template('fitness/allenamenti.html')
- 
 
-  context = {
-    'members': members
-  }
-  return HttpResponse(template.render(context, request))
+def workout(request):
 
-  pass
+  df=pd.read_csv('../megaGymDataset.csv')
+    
+  print(df.columns)
+  tabella=df[['Title', 'Desc',"Type","BodyPart","Equipment","Level","Rating","RatingDesc"]]
+
+      
+
+
+  context ={
+        'tabella':tabella.to_html()
+        }    
+  return render (request, "fitness/workout.html", context = context )
 
 def ollama(request):
 
@@ -65,6 +63,3 @@ def workout(request):
 
  #WORKING IN PROGRESS VISTA API SPORT
 
-def index(request):
- 
-  return render(request, 'fitness/index.html')
