@@ -6,25 +6,17 @@ from django.contrib.auth.models import User
 
 
 class Member(models.Model):
-    nome = models.CharField(max_length=50)
-    cognome = models.CharField(max_length= 50)
     data_iscrizione = models.DateTimeField(auto_now_add = True)
-    username = models.CharField(max_length = 50, unique = True)
-    altezza = models.DecimalField(default=0,max_digits= 5, decimal_places=2, help_text="Inserisci l'altezza in cm")
-    peso = models.DecimalField(default=0,max_digits= 5, decimal_places=2, help_text="Inserisci il peso in kg")
-    
+    altezza = models.DecimalField(max_digits= 5, decimal_places=2, help_text="Inserisci l'altezza in cm")
+    peso = models.DecimalField(max_digits= 5, decimal_places=2, help_text="Inserisci il peso in kg")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+     
     def __str__(self):
         return f"Altezza: {self.altezza} cm, Peso: {self.peso} kg"
     
-    REQUIRED_FIELDS = ['nome', 'cognome','peso','altezza']
-
 
     class Meta:
       verbose_name_plural = "Utenti"
-
-
-    def __str__(self)->str:
-      return self.username
       
 
 
@@ -50,8 +42,6 @@ class CaratteristicheFisiche(models.Model):
    class Meta:
         verbose_name = "CaratteristicheFisiche"  # Nome singolare
         
-   def __str__(self):
-        return self.nome
 
 
 
@@ -66,7 +56,7 @@ class ObiettivoFitness(models.Model):
 
 
 
-    utente = models.ForeignKey(User, on_delete=models.CASCADE)
+    utente = models.ForeignKey(Member, on_delete=models.CASCADE)
     obiettivo = models.CharField(max_length=1, choices=UTENTE_OBIETTIVO_CHOICES)
     data_inizio = models.DateField()
     data_fine = models.DateField()
@@ -76,3 +66,25 @@ class ObiettivoFitness(models.Model):
     def __str__(self):
         return f"{self.utente.username} - {self.get_obiettivo_display()}"
 
+class Workout(models.Model):
+    title = models.CharField(max_length=100)
+    desc = models.TextField()
+    type = models.CharField(max_length=100)
+    bodypart = models.CharField(max_length=100)
+    equipment = models.CharField(max_length=100)
+    level = models.CharField(max_length=100)
+    rating = models.FloatField()
+    reatingdesc = models.TextField()
+
+
+    def __str__(self):
+        return self.title
+    
+
+class Plan(models.Model):
+    title = models.CharField(max_length=100)
+    utente = models.ForeignKey(Member, on_delete=models.CASCADE)
+    workouts = models.ManyToManyField(Workout)
+
+    def __str__(self):
+        return self.title

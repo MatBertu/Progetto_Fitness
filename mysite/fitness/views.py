@@ -7,10 +7,10 @@ from .models import Member
 from langchain_ollama import OllamaLLM
 import markdown
 import pandas as pd 
-
+from fatsecret import Fatsecret
 
 def fitness(request):
- 
+  
   return render(request, 'fitness/fitness.html')
 
 
@@ -44,22 +44,23 @@ def ollama(request):
 
 
 
+def foods(request, food=None):
+  consumer_key = '92c4597e973d4bfe8c4b96f19ac473df'
+  consumer_secret = '91808c0b278f48ababe8dbeaf75649a0'
 
+  if food:
+    try:
+      fs = Fatsecret(consumer_key, consumer_secret)
+      foods = fs.foods_search(food)
+    except:
+      foods = []
+    print(foods)
+  else:
+    foods = []
 
-def workout(request):
+  context = {
+    'foods': foods,
+  }
+  return render(request, 'fitness/food.html', context=context)
 
-  df=pd.read_csv('../megaGymDataset.csv')
-    
-  print(df.columns)
-  tabella=df[['Title', 'Desc',"Type","BodyPart","Equipment","Level","Rating","RatingDesc"]]
-
-      
-
-
-  context ={
-        'tabella':tabella.to_html()
-        }    
-  return render (request, "fitness/workout.html", context = context )
-
- #WORKING IN PROGRESS VISTA API SPORT
 

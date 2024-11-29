@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE HTML>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+
+<h1>Foods</h1>
+<header class="major">
+<p>
+    <ul>
+    {% for food in foods %}
+        <li><strong>{{ food.food_name}}</strong>: {{ food.food_description}}</li>
+    {% endfor %}
+    </ul>
+</header>
+</p>
+</html>

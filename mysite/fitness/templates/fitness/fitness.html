@@ -54,7 +54,14 @@
 						<!-- Featured Post -->
 							<article class="post featured">
 								<header class="major">
-									<span class="date">November  2024</span>
+									<p>
+										<ul>
+										{% for food in foods %}
+											<li><strong>{{ food.food_name}}</strong>: {{ food.food_description}}</li>
+										{% endfor %}
+										</ul>
+									</p>
+									<span class="date"></span>
 									<h2><a href="#">Abbina workout <br />
 									ad una alimentazione sana</a></h2>
 									<p>Libera la tua energia e unisciti alla nostra community!<br />
@@ -85,13 +92,13 @@
 								<article>
 									<header>
 										
-										<h2><a href="#">Primis eget<br />
-										imperdiet lorem</a></h2>
+										<h2><a href="#">L'alimentazione<br />
+										che fa per te</a></h2>
 									</header>
 									<a href="#" class="image fit"><img src="{% static 'fitness/images/allenamenti.jpg' %}" alt="" /></a>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. </p>
+									<p>Scopri le caratteristiche di un cibo a tua scelta , per poter creare una dieta equilibrata. </p>
 									<ul class="actions special">
-										<li><a href="#" class="button">Full Story</a></li>
+										<li><a href="http://127.0.0.1:8000/fitness/foods/" class="button">Foods</a></li>
 									</ul>
 								</article>
 						
