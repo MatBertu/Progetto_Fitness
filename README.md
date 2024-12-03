@@ -89,4 +89,15 @@ python manage.py migrate
 Scelta dei programmi di allenamento su misura per ogni singolo individuo
 
 Allestimento pagina di allenamenti e schede programmate 
+
+Possibilità di scegliere un tipo di workout da una lista all'interno di un database .
+
+
+```
+# Esegui il seguente commando per importare la lista dei workout:
+
+```sh
+
+python manage.py import_csv ../megaGymDataset.csv
+
 ```
