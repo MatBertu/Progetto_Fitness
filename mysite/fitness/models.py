@@ -12,11 +12,11 @@ class Member(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
      
     def __str__(self):
-        return f"Altezza: {self.altezza} cm, Peso: {self.peso} kg"
+        return f"{self.user.first_name} {self.user.last_name} ({self.altezza} cm, {self.peso} kg)"
     
 
     class Meta:
-      verbose_name_plural = "Utenti"
+      verbose_name_plural = "Members"
       
 
 
@@ -25,46 +25,45 @@ class CaratteristicheFisiche(models.Model):
    NORMOPESO = "NORMOP"
    SOVRAPPESO = "SOVRAP"
    
-
-
-   SCELTA_TROVA_CARATTERISTICHE = [
+   TIPI_PESO = [
       (SOTTOPESO,"Sottopeso"),
       (NORMOPESO,"Normopeso"),
       (SOVRAPPESO ,"Sovrappeso"),
    ]
    
-   Scelta_Caratteristiche = models.CharField(
+   tipo_peso = models.CharField(
     max_length = 50,
-    choices = SCELTA_TROVA_CARATTERISTICHE,
+    choices = TIPI_PESO,
     default = "",
    )
-
+   member = models.ForeignKey(Member, on_delete=models.CASCADE)
+   
+   def __str__(self):
+        return f"{self.member} - {self.get_tipo_peso_display()}"
+   
    class Meta:
-        verbose_name = "CaratteristicheFisiche"  # Nome singolare
+        verbose_name_plural = "CaratteristicheFisiche"  # Nome singolare
         
 
 
 
 class ObiettivoFitness(models.Model):
-    UTENTE_OBIETTIVO_CHOICES = [
+    OBIETTIVO_CHOICES = [
         ('D', 'Dimagrimento'),
         ('M', 'Massa muscolare'),
         ('F', 'Mantenere la forma fisica'),
         ('A', 'Altro'),
     ]
 
-
-
-
-    utente = models.ForeignKey(Member, on_delete=models.CASCADE)
-    obiettivo = models.CharField(max_length=1, choices=UTENTE_OBIETTIVO_CHOICES)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    obiettivo = models.CharField(max_length=1, choices=OBIETTIVO_CHOICES)
     data_inizio = models.DateField()
     data_fine = models.DateField()
     note = models.TextField(blank=True)
 
 
     def __str__(self):
-        return f"{self.utente.username} - {self.get_obiettivo_display()}"
+        return f"{self.member} - {self.get_obiettivo_display()}"
 
 class Workout(models.Model):
     title = models.CharField(max_length=100)
@@ -83,8 +82,8 @@ class Workout(models.Model):
 
 class Plan(models.Model):
     title = models.CharField(max_length=100)
-    utente = models.ForeignKey(Member, on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE)
     workouts = models.ManyToManyField(Workout)
 
     def __str__(self):
-        return self.title
+        return f"{self.member} - {self.title}"
