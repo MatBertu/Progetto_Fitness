@@ -1,5 +1,10 @@
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+
+from .forms import UserRegistrationForm, MemberRegistrationForm
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from django.template import loader
 from django.db import models
 
@@ -62,5 +67,24 @@ def foods(request, food=None):
     'foods': foods,
   }
   return render(request, 'fitness/food.html', context=context)
+
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        member_form = MemberRegistrationForm(request.POST)
+        if user_form.is_valid() and member_form.is_valid():
+            user = user_form.save(commit=False)
+            user.set_password(user_form.cleaned_data['password1'])
+            user.save()
+            member = member_form.save(commit=False)
+            member.user = user
+            member.save()
+            login(request, user)
+            return redirect('/fitness/fitness')  # Modifica con la tua pagina di destinazione
+    else:
+        user_form = UserRegistrationForm()
+        member_form = MemberRegistrationForm()
+    return render(request, 'fitness/register.html', {'user_form': user_form, 'member_form': member_form})
 
 
