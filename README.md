@@ -70,6 +70,22 @@ pip freeze > requirements.txt
 ```sh
 1. cd (nome cartella)mysite
 ```
+
+# Esegui le migrazioni se necessarie
+```sh
+python manage.py makemigrations
+```
+
+```sh
+python manage.py migrate
+```
+# Esegui il seguente commando per importare la lista dei workout dal database:
+
+```sh
+
+python manage.py import_csv ../megaGymDataset.csv
+
+```
 # Run the server/site
 ```sh
 1. python manage.py runserver
@@ -77,27 +93,29 @@ pip freeze > requirements.txt
 
 2. Si aprirà il Browser con l'host di defeault http://127.0.0.1:8000/
 
-3. Aggiungi all'indirizzo sopra fitness o allenamenti in base al sito che vuoi visualizzare.
+3. Aggiungi all'indirizzo sopra 'fitness' per visualizzare l'homepage  del progetto, oppure gli altri urls in base alla pagina che vuoi visualizzare.
 
-# Esegui le migrazioni se necessarie
+
+
+#Elenco funzionalità del sito:
 ```sh
-python manage.py migrate
+1 Scelta dei programmi di allenamento su misura per ogni singolo individuo
+
+2 Possibilità di scegliere un tipo di workout da una lista all'interno di un database 
+
+3 Consultare una pagina dove puoi controllare le calorie e le caratteristiche di ogni alimento(tramite le API fatsecret),per poterlo fare aggiungi all'indirizzo predefinito "fitness/foods/" qualsiasi tipo di alimento ex. pizza.
+
+4 Chiedere ad un assistente digitale consigli giornalieri su ruoutine giornalieri di esercizi tipo stretching, puoi farlo da un bottone sull'homepage.
+
+
 ```
+
+
 
 #Funzionalità in fase di sviluppo 
 ```sh
-Scelta dei programmi di allenamento su misura per ogni singolo individuo
+Allestimento dell'intefaccia grafica per il profilo di ogni singolo utente
 
-Allestimento pagina di allenamenti e schede programmate 
-
-Possibilità di scegliere un tipo di workout da una lista all'interno di un database .
-
-
-```
-# Esegui il seguente commando per importare la lista dei workout:
-
-```sh
-
-python manage.py import_csv ../megaGymDataset.csv
+Implementazione di una funzionalità per poter vedere i dati di uno smartwatch qualsiasi.
 
 ```
