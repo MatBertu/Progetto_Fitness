@@ -41,7 +41,10 @@ class PlanForm(forms.ModelForm):
     class Meta:
         model = Plan
         fields = ['title', 'workouts']  # `member` può essere impostato automaticamente dalla vista
-
+        widgets = {
+            'workouts': forms.SelectMultiple(attrs={'class': 'select2'})  # Aggiungi classe per Select2
+        }
+        
 class ObiettivoFitnessForm(forms.ModelForm):
     class Meta:
         model = ObiettivoFitness
