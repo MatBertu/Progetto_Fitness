@@ -24,8 +24,9 @@
     <h2>Obiettivi Fitness</h2>
     <ul>
         {% for obiettivo in obiettivi %}
-            <li>{{ obiettivo.get_obiettivo_display }} - {{ obiettivo.description }}</li>
+            <li>{{ obiettivo.get_obiettivo_display }} - {{obiettivo.data_inizio}} - {{ obiettivo.note }}</li>
         {% empty %}
+      
             <li>Nessun obiettivo fitness registrato.</li>
         {% endfor %}
     </ul>
@@ -45,15 +46,16 @@
             <li>Nessun piano disponibile.</li>
         {% endfor %}
     </ul>
-
+    
+    <!-- 
     <h2>Workout Disponibili</h2>
     <ul>
         {% for workout in workouts %}
             <li>{{ workout.title }} - {{ workout.desc }}</li>
         {% empty %}
             <li>Nessun workout disponibile.</li>
-        {% endfor %}
-    </ul>
+        {% endfor %} 
+    </ul> -->
 
    
 </body>
