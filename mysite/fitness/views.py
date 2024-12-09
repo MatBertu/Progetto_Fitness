@@ -121,7 +121,7 @@ def add_plan(request):
 # Aggiungi un obiettivo fitness
 def add_obiettivo_fitness(request):
     if request.method == 'POST':
-        form = ObiettivoFitnessForm(request.POST)
+        form = ObiettivoFitnessForm(request.POST, user =request.user)
         if form.is_valid():
             form.save()
             return redirect('fitness/overview')  # Sostituisci con la tua pagina
@@ -132,7 +132,7 @@ def add_obiettivo_fitness(request):
 # Aggiungi una caratteristica fisica
 def add_caratteristica_fisica(request):
     if request.method == 'POST':
-        form = CaratteristicheFisicheForm(request.POST)
+        form = CaratteristicheFisicheForm(request.POST ,user =request.user)
         if form.is_valid():
             form.save()
             return redirect('fitness/overview')  # Sostituisci con la tua pagina

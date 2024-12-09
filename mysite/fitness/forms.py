@@ -45,9 +45,59 @@ class PlanForm(forms.ModelForm):
 class ObiettivoFitnessForm(forms.ModelForm):
     class Meta:
         model = ObiettivoFitness
-        fields = '__all__'
+        fields = ['obiettivo','data_inizio','data_fine','note']
+    def __init__(self, *args, **kwargs):
+        # Riceviamo l'utente come argomento e lo rimuoviamo dai kwargs
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        # Assicuriamoci che il Member corrisponda all'utente loggato
+        if not self.user:
+            raise ValueError("User is required to save this form.")
+
+        # Recuperiamo il Member associato all'utente loggato
+        try:
+            member = Member.objects.get(user=self.user)
+        except Member.DoesNotExist:
+            raise ValueError("No Member instance found for the logged-in user.")
+
+        # Colleghiamo il Member al modello CaratteristicheFisiche
+        instance = super().save(commit=False)
+        instance.member = member
+
+        if commit:
+            instance.save()
+
+        return instance
 
 class CaratteristicheFisicheForm(forms.ModelForm):
     class Meta:
         model = CaratteristicheFisiche
-        fields = '__all__'
+        fields = ['tipo_peso']  # Mostriamo solo il campo che l'utente deve compilare
+
+    def __init__(self, *args, **kwargs):
+        # Riceviamo l'utente come argomento e lo rimuoviamo dai kwargs
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        # Assicuriamoci che il Member corrisponda all'utente loggato
+        if not self.user:
+            raise ValueError("User is required to save this form.")
+
+        # Recuperiamo il Member associato all'utente loggato
+        try:
+            member = Member.objects.get(user=self.user)
+        except Member.DoesNotExist:
+            raise ValueError("No Member instance found for the logged-in user.")
+
+        # Colleghiamo il Member al modello CaratteristicheFisiche
+        instance = super().save(commit=False)
+        instance.member = member
+
+        if commit:
+            instance.save()
+
+        return instance
+
