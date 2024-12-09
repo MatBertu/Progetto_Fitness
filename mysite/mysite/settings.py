@@ -118,6 +118,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+LOGIN_REDIRECT_URL = '/fitness/add_caratteristica_fisica'
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR,  'fitness/static')]  # Aggiungi la directory 'static' nella cartella principale del progetto

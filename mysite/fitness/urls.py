@@ -13,6 +13,11 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='fitness/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),  # Registrazione utente
+    path('add_workout/', views.add_workout, name='fitness/add_workout'),
+    path('add_plan/', views.add_plan, name='fitness/add_plan'),
+    path('add_obiettivo_fitness/', views.add_obiettivo_fitness, name='fitness/add_obiettivo_fitness'),
+    path('add_caratteristica_fisica/', views.add_caratteristica_fisica, name='fitness/add_caratteristica_fisica'),
+    path('overview/',views.fitness_overview, name= 'fitness/overview')
 ]
    
    

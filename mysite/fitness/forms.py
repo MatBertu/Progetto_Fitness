@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Member
+from .models import Member,CaratteristicheFisiche,ObiettivoFitness,Workout,Plan
 
 class UserRegistrationForm(forms.ModelForm):
     password1 = forms.CharField(
@@ -27,3 +27,27 @@ class MemberRegistrationForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ['altezza', 'peso']
+
+
+from django import forms
+from .models import Workout, Plan, ObiettivoFitness, CaratteristicheFisiche
+
+class WorkoutForm(forms.ModelForm):
+    class Meta:
+        model = Workout
+        fields = '__all__'
+
+class PlanForm(forms.ModelForm):
+    class Meta:
+        model = Plan
+        fields = ['title', 'workouts']  # `member` può essere impostato automaticamente dalla vista
+
+class ObiettivoFitnessForm(forms.ModelForm):
+    class Meta:
+        model = ObiettivoFitness
+        fields = '__all__'
+
+class CaratteristicheFisicheForm(forms.ModelForm):
+    class Meta:
+        model = CaratteristicheFisiche
+        fields = '__all__'

@@ -1,14 +1,15 @@
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
-from .forms import UserRegistrationForm, MemberRegistrationForm
+from .forms import UserRegistrationForm, MemberRegistrationForm,WorkoutForm, PlanForm, ObiettivoFitnessForm, CaratteristicheFisicheForm
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.template import loader
 from django.db import models
 
-from .models import Member
+from .models import Member,CaratteristicheFisiche,ObiettivoFitness,Plan,Workout
+
 from langchain_ollama import OllamaLLM
 import markdown
 import pandas as pd 
@@ -88,3 +89,73 @@ def register(request):
     return render(request, 'fitness/register.html', {'user_form': user_form, 'member_form': member_form})
 
 
+
+
+# Aggiungi un nuovo workout
+def add_workout(request):
+    if request.method == 'POST':
+        form = WorkoutForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('fitness/overview')  # Sostituisci con la tua pagina
+    else:
+        form = WorkoutForm()
+    return render(request, 'fitness/add_workout.html', {'form': form})
+
+
+
+# Aggiungi un nuovo piano
+def add_plan(request):
+    if request.method == 'POST':
+        form = PlanForm(request.POST)
+        if form.is_valid():
+            plan = form.save(commit=False)
+            plan.member = Member.objects.get(user=request.user)  # Associa il piano al membro autenticato
+            plan.save()
+            form.save_m2m()  # Salva i workout associati
+            return redirect('fitness/overview')  # Sostituisci con la tua pagina
+    else:
+        form = PlanForm()
+    return render(request, 'fitness/add_plan.html', {'form': form})
+
+# Aggiungi un obiettivo fitness
+def add_obiettivo_fitness(request):
+    if request.method == 'POST':
+        form = ObiettivoFitnessForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('fitness/overview')  # Sostituisci con la tua pagina
+    else:
+        form = ObiettivoFitnessForm()
+    return render(request, 'fitness/add_obiettivo_fitness.html', {'form': form})
+
+# Aggiungi una caratteristica fisica
+def add_caratteristica_fisica(request):
+    if request.method == 'POST':
+        form = CaratteristicheFisicheForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('fitness/overview')  # Sostituisci con la tua pagina
+    else:
+        form = CaratteristicheFisicheForm()
+    return render(request, 'fitness/add_caratteristica_fisica.html', {'form': form})
+
+def fitness_overview(request):
+    # Ottieni il membro attualmente autenticato
+    member = Member.objects.get(user=request.user)
+
+    # Recupera i dati associati al membro
+    caratteristiche = CaratteristicheFisiche.objects.filter(member=member)
+    plans = Plan.objects.filter(member=member)
+    workouts = Workout.objects.all()  # Mostra tutti i workout disponibili
+    obiettivi = ObiettivoFitness.objects.filter(member=member)
+
+    # Passa i dati al template
+    context = {
+        'member': member,
+        'caratteristiche': caratteristiche,
+        'plans': plans,
+        'workouts': workouts,
+        'obiettivi': obiettivi,
+    }
+    return render(request, 'fitness/overview.html', context)
