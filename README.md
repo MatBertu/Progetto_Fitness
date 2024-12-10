@@ -60,9 +60,16 @@ pip install -r requirements.txt
 pip install Django
 ```
 
-2.  update the deps file
+2. install the deps
+```sh
+pip install -r requirements.txt
+```
+
+3.  update the deps file
 
 ```sh
+pip freeze (Stampa la lista delle deps)
+
 pip freeze > requirements.txt
 
 ```
