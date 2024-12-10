@@ -109,6 +109,8 @@ python manage.py import_csv ../megaGymDataset.csv
 
 # Elenco funzionalità del sito:
 ```sh
+Un utente una volta loggato può eseguire le seguenti azioni ;
+
 1 Scelta dei programmi di allenamento su misura per ogni singolo individuo
 
 2 Possibilità di scegliere un tipo di workout da una lista all'interno di un database 
@@ -128,6 +130,8 @@ Allestimento dell'intefaccia grafica per il profilo di ogni singolo utente
 
 Implementazione di una funzionalità per poter vedere i dati di uno smartwatch qualsiasi.
 
+Implementazione di una stanza di palestra in 3D.
+
 ```
 
 # Riferimenti delle librerie usate in rete 
@@ -137,7 +141,4 @@ https://ollama.com/library/llama3.2
 
 Fatsecret:
 https://platform.fatsecret.com/platform-api
-
-
-
 ```
