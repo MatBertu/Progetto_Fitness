@@ -2,9 +2,12 @@
 
 # Idea di un sito per monitorare la salute fisica ,abbinata a un programma di allenamento specifico che varia per ogni singolo individuo , con possibilità di collegare tali dati ad uno smartwatch tipo Fitbit.
 
+
 ## Requirements
 
 Questo progetto funziona con Python 3.12.
+
+Necessarie tutte le dipendenze contenute nel file requirements.txt
 
 ## Step to run
 ```sh
@@ -104,7 +107,7 @@ python manage.py import_csv ../megaGymDataset.csv
 
 
 
-#Elenco funzionalità del sito:
+# Elenco funzionalità del sito:
 ```sh
 1 Scelta dei programmi di allenamento su misura per ogni singolo individuo
 
@@ -119,10 +122,22 @@ python manage.py import_csv ../megaGymDataset.csv
 
 
 
-#Funzionalità in fase di sviluppo 
+# Funzionalità in fase di sviluppo 
 ```sh
 Allestimento dell'intefaccia grafica per il profilo di ogni singolo utente
 
 Implementazione di una funzionalità per poter vedere i dati di uno smartwatch qualsiasi.
+
+```
+
+# Riferimenti delle librerie usate in rete 
+```sh
+Ollama:
+https://ollama.com/library/llama3.2
+
+Fatsecret:
+https://platform.fatsecret.com/platform-api
+
+
 
 ```
