@@ -63,15 +63,15 @@ pip install -r requirements.txt
 pip install Django
 ```
 
-2. install the deps
+2. Print the dependecy
 ```sh
-pip install -r requirements.txt
+pip freeze (Stampa la lista delle deps)
 ```
 
 3.  update the deps file
 
 ```sh
-pip freeze (Stampa la lista delle deps)
+
 
 pip freeze > requirements.txt
 
