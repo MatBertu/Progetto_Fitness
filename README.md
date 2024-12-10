@@ -1,4 +1,6 @@
-## Progetto_Fitness
+
+
+## Fytex
 
 # Idea di un sito per monitorare la salute fisica ,abbinata a un programma di allenamento specifico che varia per ogni singolo individuo , con possibilità di collegare tali dati ad uno smartwatch tipo Fitbit.
 
@@ -13,9 +15,9 @@ Necessarie tutte le dipendenze contenute nel file requirements.txt
 ```sh
 1.clone the repo and enter the folder
 
-git clone  ex:( https://github.com/bertux-8/Progetto_Django.git )
+git clone  ex:( https://github.com/bertux-8/Progetto_Fitness.git )
 
-cd nome cartella >>(Progetto_Django)
+cd nome cartella >>(Progetto_Fitness)
 ```
 
 ```sh
