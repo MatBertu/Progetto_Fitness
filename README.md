@@ -91,7 +91,7 @@ python manage.py makemigrations
 ```sh
 python manage.py migrate
 ```
-# Esegui il seguente commando per importare la lista dei workout dal database:
+# Esegui il seguente commando per importare la lista dei workout nel database:
 
 ```sh
 
@@ -141,6 +141,7 @@ Implementazione di una stanza di palestra in 3D.
 Ollama:
 https://ollama.com/library/llama3.2
 
-Fatsecret:
+Utilizzo delle API Fatsecret:
+
 https://platform.fatsecret.com/platform-api
 ```
