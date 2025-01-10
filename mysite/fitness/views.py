@@ -1,5 +1,6 @@
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.paginator import Paginator
 
 from .forms import UserRegistrationForm, MemberRegistrationForm,WorkoutForm, PlanForm, ObiettivoFitnessForm, CaratteristicheFisicheForm
 
@@ -23,18 +24,25 @@ def fitness(request):
 
 def workout(request):
 
-  df=pd.read_csv('../megaGymDataset.csv')
-    
-  print(df.columns)
-  tabella=df[['Title', 'Desc',"Type","BodyPart","Equipment","Level","Rating","RatingDesc"]]
+# Carica il dataset
+    df = pd.read_csv('../megaGymDataset.csv')
 
-      
+    # Seleziona le colonne necessarie
+    tabella = df[['Title', 'Desc', "Type", "BodyPart", "Equipment", "Level", "Rating", "RatingDesc"]]
 
+    # Converti il DataFrame in una lista di dizionari
+    workouts = tabella.to_dict(orient='records')
 
-  context ={
-        'tabella':tabella.to_html()
-        }    
-  return render (request, "fitness/workout.html", context = context )
+    # Applica la paginazione
+    paginator = Paginator(workouts, 20)  # Mostra 20 righe per pagina
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    # Passa i dati al template
+    context = {
+        'page_obj': page_obj
+    }
+    return render(request, "fitness/workout.html", context=context)
 
 def ollama(request):
 
@@ -147,15 +155,20 @@ def fitness_overview(request):
     # Recupera i dati associati al membro
     caratteristiche = CaratteristicheFisiche.objects.filter(member=member)
     plans = Plan.objects.filter(member=member)
-    workouts = Workout.objects.all()  # Mostra tutti i workout disponibili
     obiettivi = ObiettivoFitness.objects.filter(member=member)
+    workouts = Workout.objects.all()  # Mostra tutti i workout disponibili
+
+    # Applica la paginazione: mostra solo 20 righe per pagina
+    paginator = Paginator(workouts, 20)  # Mostra 20 workout per pagina
+    page_number = request.GET.get('page', 1)  # Ottieni il numero della pagina dalla query string
+    page_obj = paginator.get_page(page_number)  # Ottieni i workout per la pagina corrente
 
     # Passa i dati al template
     context = {
         'member': member,
         'caratteristiche': caratteristiche,
         'plans': plans,
-        'workouts': workouts,
         'obiettivi': obiettivi,
+        'page_obj': page_obj,  # Aggiungi l'oggetto della paginazione ai dati
     }
     return render(request, 'fitness/overview.html', context)
