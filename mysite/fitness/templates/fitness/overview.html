@@ -130,19 +130,56 @@
     <a href="{% url 'fitness/add_plan' %}" class="button">Aggiungi Piano</a>
 
     <!-- Workout -->
+    <title>Workout Disponibili</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            background-color: #f4f4f4;
+        }
+        .pagination a.active {
+            font-weight: bold;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
     <h2>Workout Disponibili</h2>
     <table>
         <thead>
             <tr>
-                <th>Titolo</th>
-                <th>Descrizione</th>
-                <th>Tipo</th>
-                <th>Livello</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Body Part</th>
+                <th>Equipment</th>
+                <th>Level</th>
                 <th>Rating</th>
+                <th>Rating Description</th>
             </tr>
         </thead>
         <tbody>
-            {% for workout in workouts %}
+            {% for workout in page_obj %}
             <tr>
                 <td>{{ workout.title }}</td>
                 <td>{{ workout.desc }}</td>
@@ -157,6 +194,23 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Precedente</a>
+        {% endif %}
+
+        <span>Pagina {{ page_obj.number }} di {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Successivo</a>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+
     <a href="{% url 'fitness/add_workout' %}" class="button">Aggiungi Workout</a>
 </body>
 </html>
