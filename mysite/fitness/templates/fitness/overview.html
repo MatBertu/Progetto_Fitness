@@ -4,59 +4,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panoramica Fitness</title>
-    <link rel="stylesheet" href="{% static 'fitness/style.css' %}">
+    <title>Fitness Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .button {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Panoramica Fitness per {{ member.user.first_name }} {{ member.user.last_name }}</h1>
+    <h1>Fitness Overview</h1>
+
+    <!-- Sezione Membro -->
+    <h2>Informazioni Membro</h2>
+    <p><strong>Nome:</strong> {{ member.user.first_name }} {{ member.user.last_name }}</p>
     <p><strong>Altezza:</strong> {{ member.altezza }} cm</p>
     <p><strong>Peso:</strong> {{ member.peso }} kg</p>
 
+    <!-- Caratteristiche fisiche -->
     <h2>Caratteristiche Fisiche</h2>
-    <ul>
-        {% for caratteristica in caratteristiche %}
-            <li>{{ caratteristica.get_tipo_peso_display }}</li>
-        {% empty %}
-            <li>Nessuna caratteristica fisica registrata.</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Tipo Peso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for caratteristica in caratteristiche %}
+            <tr>
+                <td>{{ caratteristica.get_tipo_peso_display }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="1">Nessuna caratteristica fisica trovata.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'fitness/add_caratteristica_fisica' %}" class="button">Aggiungi Caratteristica</a>
 
+    <!-- Obiettivi Fitness -->
     <h2>Obiettivi Fitness</h2>
-    <ul>
-        {% for obiettivo in obiettivi %}
-            <li>{{ obiettivo.get_obiettivo_display }} - {{obiettivo.data_inizio}} - {{ obiettivo.note }}</li>
-        {% empty %}
-      
-            <li>Nessun obiettivo fitness registrato.</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Obiettivo</th>
+                <th>Data Inizio</th>
+                <th>Data Fine</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obiettivo in obiettivi %}
+            <tr>
+                <td>{{ obiettivo.get_obiettivo_display }}</td>
+                <td>{{ obiettivo.data_inizio }}</td>
+                <td>{{ obiettivo.data_fine }}</td>
+                <td>{{ obiettivo.note }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Nessun obiettivo fitness trovato.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'fitness/add_obiettivo_fitness' %}" class="button">Aggiungi Obiettivo</a>
 
+    <!-- Piani -->
     <h2>Piani</h2>
-    <ul>
-        {% for plan in plans %}
-            <li>
-                <strong>{{ plan.title }}</strong>
-                <ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Titolo</th>
+                <th>Workout Associati</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plan in plans %}
+            <tr>
+                <td>{{ plan.title }}</td>
+                <td>
                     {% for workout in plan.workouts.all %}
-                        <li>{{ workout.title }} - {{ workout.desc }}</li>
+                    {{ workout.title }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
-                </ul>
-            </li>
-        {% empty %}
-            <li>Nessun piano disponibile.</li>
-        {% endfor %}
-    </ul>
-    
-    <!-- 
-    <h2>Workout Disponibili</h2>
-    <ul>
-        {% for workout in workouts %}
-            <li>{{ workout.title }} - {{ workout.desc }}</li>
-        {% empty %}
-            <li>Nessun workout disponibile.</li>
-        {% endfor %} 
-    </ul> -->
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">Nessun piano trovato.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'fitness/add_plan' %}" class="button">Aggiungi Piano</a>
 
-   
+    <!-- Workout -->
+    <h2>Workout Disponibili</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Titolo</th>
+                <th>Descrizione</th>
+                <th>Tipo</th>
+                <th>Livello</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workout in workouts %}
+            <tr>
+                <td>{{ workout.title }}</td>
+                <td>{{ workout.desc }}</td>
+                <td>{{ workout.type }}</td>
+                <td>{{ workout.level }}</td>
+                <td>{{ workout.rating }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Nessun workout trovato.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'fitness/add_workout' %}" class="button">Aggiungi Workout</a>
 </body>
 </html>
