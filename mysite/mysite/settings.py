@@ -114,6 +114,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+
+# Formato per la visualizzazione delle date nei template
+DATE_FORMAT = 'd/m/Y'
+
+# Assicurati che USE_L10N sia impostato su False per applicare il formato personalizzato
+USE_L10N = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -136,3 +143,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = "media/"
 MEDIA_URL = "media/"
+
