@@ -88,8 +88,8 @@
             {% for obiettivo in obiettivi %}
             <tr>
                 <td>{{ obiettivo.get_obiettivo_display }}</td>
-                <td>{{ obiettivo.data_inizio }}</td>
-                <td>{{ obiettivo.data_fine }}</td>
+                <td>{{ obiettivo.data_inizio|date:"d/m/Y"  }}</td>
+                <td>{{ obiettivo.data_fine|date:"d/m/Y"  }}</td>
                 <td>{{ obiettivo.note }}</td>
             </tr>
             {% empty %}
