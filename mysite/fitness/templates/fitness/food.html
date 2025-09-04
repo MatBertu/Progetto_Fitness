@@ -1,17 +1,78 @@
 {% load static %}
 <!DOCTYPE HTML>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<html>
+<head>
+    <title>Ricerca Nutrizionale</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* Un po' di stile personalizzato per migliorare l'aspetto */
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card {
+            border: none;
+        }
+    </style>
+</head>
+<body>
 
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Ricerca Alimenti 🍎</h1>
+        <p class="lead text-muted">Trova i valori nutrizionali dei cibi usando le API di Fatsecret.</p>
+    </div>
 
-<h1>Foods</h1>
-<header class="major">
-<p>
-    <ul>
-    {% for food in foods %}
-        <li><strong>{{ food.food_name}}</strong>: {{ food.food_description}}</li>
-    {% endfor %}
-    </ul>
-</header>
-</p>
+    <form method="post" class="mb-5">
+        {% csrf_token %}
+        <div class="input-group input-group-lg shadow-sm">
+            <input type="text" name="query" class="form-control" placeholder="Es. 'Mela' o '100g petto di pollo'" value="{{ query }}" required>
+            <button class="btn btn-primary" type="submit">Cerca</button>
+        </div>
+    </form>
+
+    {% if foods %}
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h3>Risultati per "{{ query }}"</h3>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="ps-4">Nome Alimento</th>
+                                <th scope="col">Descrizione Nutrizionale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for food in foods %}
+                                <tr>
+                                    <td class="ps-4"><strong>{{ food.food_name }}</strong></td>
+                                    <td>{{ food.food_description }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    {% elif request.method == 'POST' %}
+        <div class="alert alert-warning text-center" role="alert">
+            Nessun risultato trovato per "{{ query }}". Prova con un altro termine.
+        </div>
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>

@@ -1,8 +1,33 @@
 {% load static %}
 
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiedi a Ollama</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-<link rel="stylesheet" href="{% static 'fitness/styles.css' %}">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Consigli da Ollama</h1>
 
-<h1>0llama</h1>
+    <form action="{% url 'ollama' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3 shadow-sm">
+            <input type="text" name="query" class="form-control form-control-lg" placeholder="Cosa vuoi chiedere a Ollama?" aria-label="Ricerca Ollama">
+            <button class="btn btn-primary" type="submit" id="button-addon2">Vai</button>
+        </div>
+    </form>
 
-<p>{{response|safe}}</p>
+    <div class="results mt-4">
+        </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<p>{{ response|safe }}</p>
