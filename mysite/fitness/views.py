@@ -1,5 +1,6 @@
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib import messages
 from django.core.paginator import Paginator
 
 from .forms import UserRegistrationForm, MemberRegistrationForm,WorkoutForm, PlanForm, ObiettivoFitnessForm, CaratteristicheFisicheForm
@@ -18,7 +19,7 @@ from fatsecret import Fatsecret
 
 def fitness(request):
   
-  return render(request, 'fitness/fitness.html')
+  return render(request, 'fitness/homepage.html')
 
 
 
@@ -45,38 +46,46 @@ def workout(request):
     return render(request, "fitness/workout.html", context=context)
 
 def ollama(request):
+    prompt_default = "Comportati da personal trainer e consigliami qualche esercizio giornaliero di rilassamento"
+    if request.method == "POST":
+        user_query = request.POST.get("query", "").strip()
+        prompt = user_query if user_query else prompt_default
+    else:
+        prompt = prompt_default
 
+    model = OllamaLLM(model="gemma3:4b")
+    response = model.invoke(input=prompt)
+    context = {"response": markdown.markdown(response, extensions=["extra", "codehilite"])}
+    return render(request, "fitness/ollama.html", context=context)
 
-  model = OllamaLLM(model="llama3.2:latest")
-  #qwen2.5:latest provato il 7b ma troppo lento 
+def foods(request):
+    consumer_key = '92c4597e973d4bfe8c4b96f19ac473df'
+    consumer_secret = '91808c0b278f48ababe8dbeaf75649a0'
+    
+    query = ""
+    foods_list = []
 
-  response = model.invoke(input="Comportati da personal trainer e consigliami qualche esercizio giornaliero di rilassamento ")
-  
-  context = {"response" : markdown.markdown(response, extensions =["extra","codehilite"])}
-  
-  return render(request,"fitness/ollama.html", context = context )
+    # Controlla se il metodo della richiesta è POST (cioè se il form è stato inviato)
+    if request.method == 'POST':
+        # Ottieni il testo cercato dall'utente dal campo <input name="query">
+        query = request.POST.get('query', '')
+        
+        if query:
+            try:
+                fs = Fatsecret(consumer_key, consumer_secret)
+                # Esegui la ricerca con la query dell'utente
+                foods_list = fs.foods_search(query)
+            except Exception as e:
+                # È una buona pratica gestire eventuali errori dall'API
+                print(f"Errore durante la chiamata all'API Fatsecret: {e}")
+                foods_list = []
 
-
-
-def foods(request, food=None):
-  consumer_key = '92c4597e973d4bfe8c4b96f19ac473df'
-  consumer_secret = '91808c0b278f48ababe8dbeaf75649a0'
-
-  if food:
-    try:
-      fs = Fatsecret(consumer_key, consumer_secret)
-      foods = fs.foods_search(food)
-    except:
-      foods = []
-    print(foods)
-  else:
-    foods = []
-
-  context = {
-    'foods': foods,
-  }
-  return render(request, 'fitness/food.html', context=context)
-
+    # Prepara il contesto da passare al template
+    context = {
+        'foods': foods_list,
+        'query': query,  # Passiamo anche la query per mostrarla di nuovo nella barra di ricerca
+    }
+    return render(request, 'fitness/food.html', context=context)
 
 def register(request):
     if request.method == 'POST':
@@ -90,7 +99,11 @@ def register(request):
             member.user = user
             member.save()
             login(request, user)
-            return redirect('/fitness/fitness')  # Modifica con la tua pagina di destinazione
+
+            # Aggiungi qui il messaggio di successo! ✅
+            messages.success(request, 'Registrazione avvenuta con successo!')
+
+            return redirect('/fitness/overview')  # Modifica con la tua pagina di destinazione
     else:
         user_form = UserRegistrationForm()
         member_form = MemberRegistrationForm()
@@ -172,3 +185,6 @@ def fitness_overview(request):
         'page_obj': page_obj,  # Aggiungi l'oggetto della paginazione ai dati
     }
     return render(request, 'fitness/overview.html', context)
+
+def unity_view(request):
+    return render(request, 'fitness/unity.html')

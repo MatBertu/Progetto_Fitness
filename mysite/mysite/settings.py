@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import mimetypes
 import os
 from pathlib import Path
 
@@ -144,3 +144,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = "media/"
 MEDIA_URL = "media/"
 
+
+mimetypes.add_type("application/javascript", ".js", True)
+mimetypes.add_type("application/wasm", ".wasm", True)
+mimetypes.add_type("application/octet-stream", ".data", True)
+mimetypes.add_type("application/javascript", ".js.br", True)
+mimetypes.add_type("application/wasm", ".wasm.br", True)
+mimetypes.add_type("application/octet-stream", ".data.br", True)
