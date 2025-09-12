@@ -2,7 +2,7 @@
 
 ## Fytex
 
-# Idea di un sito per monitorare la salute fisica ,abbinata a un programma di allenamento specifico che varia per ogni singolo individuo , con possibilità di collegare tali dati ad uno smartwatch tipo Fitbit.
+# Idea di un sito per monitorare la salute fisica ,abbinata a un programma di allenamento specifico che varia per ogni singolo individuo.
 
 
 ## Requirements
