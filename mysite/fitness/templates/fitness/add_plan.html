@@ -1,39 +1,147 @@
 <!DOCTYPE html>
-{% block content %}
-<html lang="en">
+<html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crea un Piano</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea un Piano Fitness</title>
 
-  <!-- Select2 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px; /* Aumentato per form più complessi */
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* Stile base per tutti gli input */
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        
+        /* Stile specifico per Select2 per integrarlo meglio */
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #ccc !important;
+            border-radius: 8px !important;
+            padding: 0.25rem;
+        }
+
+        .button-group {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #563d7c; /* Viola per un look diverso */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4a3469;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5c636a;
+        }
+    </style>
 </head>
 <body>
-  <h2>Crea un nuovo Piano</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Salva Piano</button>
-    <a href="http://localhost:8000/fitness/add_workout" class="button">Crea qui la tua scheda personalizzata</a>
-  </form>
 
-  <!-- Include jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {% block content %}
+    <div class="form-container">
+        <h2>Crea un nuovo Piano</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Salva Piano</button>
+                <a href="http://localhost:8000/fitness/add_workout" class="btn btn-secondary">Aggiungi un nuovo Workout</a>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
 
-  <!-- Include Select2 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-  <!-- Select2 Initialization -->
-  <script>
-    $(document).ready(function() {
-      $('.select2').select2({
-        placeholder: 'Seleziona uno o più workout',
-        allowClear: true
-      });
-    });
-  </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Assicurati che nel tuo forms.py il widget del campo abbia la classe 'select2'
+            // Esempio: self.fields['workouts'].widget.attrs.update({'class': 'select2'})
+            $('.select2').select2({
+                placeholder: 'Seleziona uno o più workout',
+                allowClear: true
+            });
+        });
+    </script>
 </body>
 </html>
-{% endblock %}
-

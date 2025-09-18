@@ -1,11 +1,131 @@
 <!DOCTYPE html>
-{% block content %}
-  <h2>Imposta un Obiettivo Fitness</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Salva Obiettivo</button>
-    <a href="http://localhost:8000/fitness/add_plan" class="button">Crea qui la tua scheda personalizzata</a>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imposta Obiettivo Fitness</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-  </form>
-{% endblock %}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #198754;
+            box-shadow: 0 0 5px rgba(25, 135, 84, 0.25);
+        }
+
+        .button-group {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 0.85rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #198754; /* Un verde per il fitness */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #157347;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5c636a;
+        }
+    </style>
+</head>
+<body>
+
+    {% block content %}
+    <div class="form-container">
+        <h2>Imposta un Obiettivo Fitness</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {% endfor %}
+            
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Salva Obiettivo</button>
+                <a href="http://localhost:8000/fitness/add_plan" class="btn btn-secondary">Crea qui la tua scheda personalizzata</a>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
+
+</body>
+</html>
