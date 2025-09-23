@@ -45,8 +45,8 @@ c.(Windows Powershell)
 .venv/Scripts/Activate.ps1
 
 
-or ( Windows Git Bash)
-d.
+or 
+d.( Windows Git Bash)
 
 . .venv/Scripts/Activate
 
@@ -98,6 +98,19 @@ python manage.py migrate
 python manage.py import_csv ../megaGymDataset.csv
 
 ```
+# Installa l'intelligenza artificiale tramite Ollama per ricevere consigli personalizzati:
+
+```sh
+1. pip install ollama
+
+2.Reference al tutorial per l'avvio di Ollama
+https://pypi.org/project/ollama/
+
+3.Install model:
+ollama run gemma3:4b
+
+```
+
 # Run the server/site
 ```sh
 1. python manage.py runserver
@@ -113,13 +126,13 @@ python manage.py import_csv ../megaGymDataset.csv
 ```sh
 Un utente una volta loggato può eseguire le seguenti azioni ;
 
-1 Scelta dei programmi di allenamento su misura per ogni singolo individuo
+1.Scelta dei programmi di allenamento su misura per ogni singolo individuo
 
-2 Possibilità di scegliere un tipo di workout da una lista all'interno di un database 
+2.Possibilità di scegliere un tipo di workout da una lista all'interno di un database 
 
-3 Consultare una pagina dove puoi controllare le calorie e le caratteristiche di ogni alimento(tramite le API fatsecret),per poterlo fare aggiungi all'indirizzo predefinito "fitness/foods/" qualsiasi tipo di alimento ex. pizza.
+3.Consultare una pagina dove puoi controllare le calorie e le caratteristiche di ogni alimento(tramite le API fatsecret),per poterlo fare aggiungi all'indirizzo predefinito "fitness/foods/" qualsiasi tipo di alimento ex. pizza.
 
-4 Chiedere ad un assistente digitale consigli giornalieri su ruoutine giornalieri di esercizi tipo stretching, puoi farlo da un bottone sull'homepage.
+4.Chiedere ad un assistente digitale consigli giornalieri su ruoutine giornalieri di esercizi tipo stretching, puoi farlo da un bottone sull'homepage.
 
 
 ```
@@ -128,7 +141,7 @@ Un utente una volta loggato può eseguire le seguenti azioni ;
 
 # Funzionalità in fase di sviluppo 
 ```sh
-Allestimento dell'intefaccia grafica per il profilo di ogni singolo utente
+Allestimento dell'interfaccia grafica per il profilo di ogni singolo utente
 
 Implementazione di una funzionalità per poter vedere i dati di uno smartwatch qualsiasi.
 
@@ -139,9 +152,15 @@ Implementazione di una stanza di palestra in 3D.
 # Riferimenti delle librerie usate in rete 
 ```sh
 Ollama:
-https://ollama.com/library/llama3.2
+https://ollama.com/library/
 
+Ollama da la possibilità all'utente di poter installare vari modelli di IA open; es.gpt-oss,deepseek,gemma3,qwen3,llama3,ecc.
+Fate la vostra scelta in base alle vostre esigenze ed alla potenza del proprio PC,nel mio caso ho usato un model da 4B di parameter ma la scelta è personale .
+```
+```sh
 Utilizzo delle API Fatsecret:
 
 https://platform.fatsecret.com/platform-api
+
+Le API di FatSecret offrono agli sviluppatori un accesso completo a un vasto database di informazioni alimentari e nutrizionali, consentendo l'integrazione di queste funzionalità in applicazioni web e mobili.
 ```
