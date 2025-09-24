@@ -164,3 +164,7 @@ https://platform.fatsecret.com/platform-api
 
 Le API di FatSecret offrono agli sviluppatori un accesso completo a un vasto database di informazioni alimentari e nutrizionali, consentendo l'integrazione di queste funzionalità in applicazioni web e mobili.
 ```
+```sh
+Unity WebGL utilizzata per la creazione di una stanza di palestra in 3D:
+https://docs.unity3d.com/560/Documentation/Manual/webgl-gettingstarted.html
+```
